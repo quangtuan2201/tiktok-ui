@@ -7,6 +7,7 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import { Wrapper as PopperWrapper } from '~/Components/Popper';
 import AccountItem from '~/Components/AccountItem';
+import Button from '~/Components/Button';
 
 const cx = className.bind(styles);
 
@@ -27,7 +28,7 @@ function Header() {
                     <img src={images.logo} alt="Logo TikTok" />
                 </div>
                 <Tippy
-                    visible={searchResult.length > 0}
+                    visible={searchResult?.length > 0}
                     interactive={true}
                     render={(attrs) => (
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
@@ -55,7 +56,10 @@ function Header() {
                         </button>
                     </div>
                 </Tippy>
-                <div className={cx('actions')}></div>
+                <div className={cx('actions')}>
+                    <Button text>Upload</Button>
+                    <Button primary>Login</Button>
+                </div>
             </div>
         </header>
     );
