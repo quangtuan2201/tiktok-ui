@@ -8,12 +8,7 @@ function AccountItem({ userInfo }) {
     // console.log('UserInfo: ', userInfo);
     return (
         <div className={cx('wrapper')}>
-            <img
-                style={{ objectFit: 'cover' }}
-                className={cx('avatar')}
-                src={require('~/assets/images/avatar.jpeg')}
-                alt="Huế"
-            ></img>
+            <img className={cx('avatar')} src={require('~/assets/images/avatar.jpeg')} alt="Huế"></img>
             <div className={cx('info')}>
                 <h4 className={'name'}>
                     <span>Nguyễn Văn A </span>

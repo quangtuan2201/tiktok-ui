@@ -59,7 +59,11 @@
 .title + .icon {
     padding-left: 8px;
 }
-
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
 //Button sizes
 // Nhỏ
 .smail {
