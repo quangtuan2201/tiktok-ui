@@ -9,7 +9,6 @@ import {
     faKeyboard,
     faMagnifyingGlass,
     faSpinner,
-    faCloudUpload,
     faMessage,
     faCoins,
     faGear,
@@ -26,6 +25,8 @@ import { Wrapper as PopperWrapper } from '~/Components/Popper';
 import AccountItem from '~/Components/AccountItem';
 import Button from '~/Components/Button';
 import Menu from '~/Components/Popper/Menu';
+import { UploadIcon } from '~/Components/Icon';
+import Images from '~/Components/Images';
 
 const cx = className.bind(styles);
 const MENU_ITEMS = [
@@ -144,7 +145,7 @@ function Header() {
                             <Tippy content="Upload video" placement="bottom" delay={[0, 200]}>
                                 {/* //placement : vị trí Tippy */}
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon />
                                 </button>
                             </Tippy>
                             <button className={cx('action-btn')}>
@@ -159,10 +160,11 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Images
                                 className={cx('user-avatar')}
                                 src={require('~/assets/images/avatar.jpeg')}
                                 alt="Nguyễn văn A"
+                                fallback={require('~/assets/images/avatar.jpeg')}
                             />
                         ) : (
                             <button className={cx('more-btn')}>
