@@ -92,6 +92,26 @@
         background-color: rgba(22, 24, 35, 0.06);
     }
 }
+// Action
+.actions {
+    display: flex;
+    align-items: center;
+}
+.user-avatar {
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 4px 12px;
+    cursor: pointer;
+}
+.action-btn {
+    background-color: transparent;
+    font-size: 2.2rem;
+    padding: 4px 12px;
+    color: #161823;
+}
 .more-btn {
     font-size: 2rem;
     margin-left: 28px;
