@@ -1,11 +1,10 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, memo } from 'react';
 import classNames from 'classnames';
 import images from '~/assets/images';
 import styles from './Images.module.scss';
 // forwardRef là một HOC để bọc component cấp thấp, nó trả về tham số ref tham chiếu đến element của cha
 const Images = forwardRef(({ src, alt, className, fallback: customFallback = images.noImage, ...props }, ref) => {
     const [fallback, setFallback] = useState('');
-    console.log('Props', props);
     const handleError = () => {
         setFallback(customFallback);
     };
@@ -20,4 +19,4 @@ const Images = forwardRef(({ src, alt, className, fallback: customFallback = ima
         />
     );
 });
-export default Images;
+export default memo(Images);

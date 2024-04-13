@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleQuestion,
-    faCircleXmark,
     faEarthAmericas,
     faEllipsisVertical,
     faKeyboard,
-    faMagnifyingGlass,
-    faSpinner,
     faMessage,
     faCoins,
     faGear,
@@ -16,17 +13,14 @@ import {
     faArrowRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
-
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import { Wrapper as PopperWrapper } from '~/Components/Popper';
-import AccountItem from '~/Components/AccountItem';
 import Button from '~/Components/Button';
 import Menu from '~/Components/Popper/Menu';
-import { UploadIcon } from '~/Components/Icon';
+import { UploadIcon } from '~/Components/Icons';
 import Images from '~/Components/Images';
+import Search from '../Search';
 
 const cx = className.bind(styles);
 const MENU_ITEMS = [
@@ -61,24 +55,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const [searchResult, setSearchResult] = useState([]);
     const currentUser = true;
-
-    useEffect(() => {
-        const id = setTimeout(() => {
-            setSearchResult([]);
-        }, 3000);
-        return () => {
-            clearTimeout(id);
-        };
-    }, []);
-    // Handle logic
-    const handleMenuChange = (menuItem) => {
-        // switch (menuItem.type) {
-        //     case 'language':
-        //         break;
-        // }
-    };
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
@@ -103,41 +80,21 @@ function Header() {
             separate: true,
         },
     ];
+
+    // Handle logic
+    const handleMenuChange = (menuItem) => {
+        // switch (menuItem.type) {
+        //     case 'language':
+        //         break;
+        // }
+    };
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
                     <img src={images.logo} alt="Logo TikTok" />
                 </div>
-                <HeadlessTippy
-                    visible={searchResult?.length > 0}
-                    interactive={true}
-                    render={(attrs) => (
-                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="Search accounts and videos" spellCheck={false} />
-                        <button className={cx('clear')}>
-                            {/* clear */}
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        {/* loading */}
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-
-                        <button className={cx('search-btn')}>
-                            {/* search */}
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
-                </HeadlessTippy>
+                <Search />
 
                 <div className={cx('actions')}>
                     {currentUser ? (
@@ -164,7 +121,7 @@ function Header() {
                                 className={cx('user-avatar')}
                                 src={require('~/assets/images/avatar.jpeg')}
                                 alt="Nguyễn văn A"
-                                fallback={require('~/assets/images/avatar.jpeg')}
+                                fallback={require('~/assets/images/avatar.jpeg')} // Dự phòng một ảnh nếu đường dẫn bị lỗi
                             />
                         ) : (
                             <button className={cx('more-btn')}>

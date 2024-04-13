@@ -3,12 +3,13 @@ import styles from './AccountItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
+import Images from '../Images';
 const cx = classNames.bind(styles);
 function AccountItem({ userInfo }) {
     // console.log('UserInfo: ', userInfo);
     return (
         <div className={cx('wrapper')}>
-            <img className={cx('avatar')} src={require('~/assets/images/avatar.jpeg')} alt="Huế"></img>
+            <Images className={cx('avatar')} src={require('~/assets/images/avatar.jpeg')} alt="Huế" />
             <div className={cx('info')}>
                 <h4 className={'name'}>
                     <span>Nguyễn Văn A </span>
