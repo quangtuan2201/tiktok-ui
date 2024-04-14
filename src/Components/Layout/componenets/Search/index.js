@@ -1,6 +1,7 @@
 import { useEffect, useState, memo, useRef } from 'react';
 import className from 'classnames/bind';
 import HeadlessTippy from '@tippyjs/react/headless';
+import axios from 'axios';
 import AccountItem from '~/Components/AccountItem';
 import { ClearIcon, LoadingIcon, SearchIcon } from '~/Components/Icons';
 import { Wrapper as PopperWrapper } from '~/Components/Popper';
@@ -11,15 +12,29 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
     const inputRef = useRef(null);
+
     useEffect(() => {
-        const id = setTimeout(() => {
-            setSearchResult(['Tuấn', 'Tuấn Anh', 'Nguyễn Tuấn Anh']);
-        }, 3000);
-        return () => {
-            clearTimeout(id);
-        };
-    }, []);
+        const apiURL = `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+            searchValue,
+        )}&type=${'less'}`;
+        if (!searchValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
+        setLoading(true);
+        (async () => {
+            try {
+                const response = await axios.get(apiURL);
+                setSearchResult(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                console.error(error);
+            }
+        })();
+    }, [searchValue]);
     const handleHideResult = () => {
         setShowResult(false);
     };
@@ -30,15 +45,16 @@ function Search() {
     };
     return (
         <HeadlessTippy
-            visible={showResult && searchResult?.length > 0}
-            interactive={true}
+            visible={showResult && searchResult.length > 0}
+            interactive
             render={(attrs) => (
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={cx('search-title')}>Accounts</h4>
-                        <AccountItem />
-                        <AccountItem />
-                        <AccountItem />
+                        {searchResult.length > 0 &&
+                            searchResult.map((item) => {
+                                return <AccountItem index={item.id} data={item} />;
+                            })}
                     </PopperWrapper>
                 </div>
             )}
@@ -46,10 +62,10 @@ function Search() {
         >
             <div className={cx('search')}>
                 <input
+                    ref={inputRef}
                     value={searchValue}
                     placeholder="Search accounts and videos"
                     spellCheck={false}
-                    ref={inputRef}
                     onChange={(e) => {
                         setSearchValue(e.target.value);
                     }}
@@ -57,17 +73,18 @@ function Search() {
                         setShowResult(true);
                     }}
                 />
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     <button className={cx('clear')} onClick={handleClear}>
                         <ClearIcon width="2rem" height="2rem" />
                     </button>
                 )}
-                {console.log('search value: ', !!searchValue)}
-                {/* <button className={cx('loading')}>
-                    <LoadingIcon width="2rem" height="2rem" />
-                </button> */}
+                {loading && (
+                    <button className={cx('loading')}>
+                        <LoadingIcon width="2rem" height="2rem" />
+                    </button>
+                )}
+                {/* search */}
                 <button className={cx('search-btn')}>
-                    {/* search */}
                     <SearchIcon width="2rem" height="2rem" />
                 </button>
             </div>

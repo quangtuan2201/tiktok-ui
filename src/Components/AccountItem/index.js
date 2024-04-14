@@ -1,23 +1,22 @@
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import styles from './AccountItem.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
 import Images from '../Images';
+import { CheckIcon } from '~/Components/Icons';
 const cx = classNames.bind(styles);
-function AccountItem({ userInfo }) {
-    // console.log('UserInfo: ', userInfo);
+function AccountItem({ data }) {
     return (
-        <div className={cx('wrapper')}>
-            <Images className={cx('avatar')} src={require('~/assets/images/avatar.jpeg')} alt="Huế" />
+        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
+            <Images className={cx('avatar')} src={data?.avatar} alt={data?.bio} />
             <div className={cx('info')}>
                 <h4 className={'name'}>
-                    <span>Nguyễn Văn A </span>
-                    <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+                    <span>{data?.bio}</span>
+                    {data.tick && <CheckIcon className={cx('check')} />}
                 </h4>
-                <span className={cx('username')}>nguyenvana</span>
+                <span className={cx('username')}>{data.full_name}</span>
             </div>
-        </div>
+        </Link>
     );
 }
 export default memo(AccountItem);
