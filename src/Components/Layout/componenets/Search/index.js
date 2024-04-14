@@ -5,6 +5,7 @@ import axios from 'axios';
 import AccountItem from '~/Components/AccountItem';
 import { ClearIcon, LoadingIcon, SearchIcon } from '~/Components/Icons';
 import { Wrapper as PopperWrapper } from '~/Components/Popper';
+import { useDebounce } from '~/hooks';
 import Styles from './Search.module.scss';
 const cx = className.bind(Styles);
 
@@ -14,12 +15,13 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
     const inputRef = useRef(null);
+    const debounced = useDebounce(searchValue, 500);
 
     useEffect(() => {
         const apiURL = `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-            searchValue,
+            debounced,
         )}&type=${'less'}`;
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
@@ -34,7 +36,7 @@ function Search() {
                 console.error(error);
             }
         })();
-    }, [searchValue]);
+    }, [debounced]);
     const handleHideResult = () => {
         setShowResult(false);
     };
@@ -73,11 +75,13 @@ function Search() {
                         setShowResult(true);
                     }}
                 />
+                {/* Clear */}
                 {!!searchValue && !loading && (
                     <button className={cx('clear')} onClick={handleClear}>
                         <ClearIcon width="2rem" height="2rem" />
                     </button>
                 )}
+                {/* Loading */}
                 {loading && (
                     <button className={cx('loading')}>
                         <LoadingIcon width="2rem" height="2rem" />
