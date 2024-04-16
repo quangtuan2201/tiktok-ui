@@ -9,6 +9,10 @@
 .menu-popper {
     padding-bottom: 8px;
 }
+.menu-body {
+    overflow-y: auto;
+    // max-height: 500px;
+}
 // menu item
 .menu-item {
     width: 100%;

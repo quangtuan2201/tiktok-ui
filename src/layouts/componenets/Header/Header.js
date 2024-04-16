@@ -1,6 +1,7 @@
 // import { useEffect, useState } from 'react';
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import {
     faCircleQuestion,
     faEarthAmericas,
@@ -18,9 +19,10 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Button from '~/Components/Button';
 import Menu from '~/Components/Popper/Menu';
-import { UploadIcon } from '~/Components/Icons';
+import { UploadIcon, MessageIcon, InboxIcon } from '~/Components/Icons';
 import Images from '~/Components/Images';
-import Search from '../Search';
+import Search from '~/layouts/componenets/Search';
+import routes from '~/config/routes';
 
 const cx = className.bind(styles);
 const MENU_ITEMS = [
@@ -91,9 +93,9 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
+                <Link to={routes.home} className={cx('logo')}>
                     <img src={images.logo} alt="Logo TikTok" />
-                </div>
+                </Link>
                 <Search />
 
                 <div className={cx('actions')}>
@@ -105,9 +107,19 @@ function Header() {
                                     <UploadIcon />
                                 </button>
                             </Tippy>
-                            <button className={cx('action-btn')}>
-                                <FontAwesomeIcon icon={faMessage} />
-                            </button>
+                            <Tippy content="Comment" placement="bottom" delay={[0, 200]}>
+                                <button className={cx('action-btn')}>
+                                    {/* <FontAwesomeIcon icon={faMessage} />
+                                     */}
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon />
+                                    <span className={cx('badge')}>12</span>
+                                </button>
+                            </Tippy>
                         </>
                     ) : (
                         <>
@@ -115,7 +127,7 @@ function Header() {
                             <Button primary>Login</Button>
                         </>
                     )}
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                    <Menu hideOnClick={false} items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
                             <Images
                                 className={cx('user-avatar')}

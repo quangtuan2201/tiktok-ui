@@ -1,4 +1,4 @@
-import Header from '../componenets/Header';
+import Header from '~/layouts/componenets/Header';
 export default function HeaderOnly({ children }) {
     return (
         <div>

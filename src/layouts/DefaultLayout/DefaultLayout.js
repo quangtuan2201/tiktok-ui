@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import className from 'classnames/bind';
-import Header from '../componenets/Header';
-import SideBar from './SideBar';
+import Header from '~/layouts/componenets/Header';
+import SideBar from '~/layouts/DefaultLayout/SideBar';
 import styles from './DefaultLayout.module.scss';
 const cx = className.bind(styles);
 
-export default function DefaultLayout({ children }) {
+function DefaultLayout({ children }) {
     return (
         <div className={cx('warrper')}>
             <Header />
@@ -15,3 +16,7 @@ export default function DefaultLayout({ children }) {
         </div>
     );
 }
+DefaultLayout.prototype = {
+    children: PropTypes.node.isRequired,
+};
+export default DefaultLayout;

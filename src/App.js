@@ -2,9 +2,11 @@ import { Fragment } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
-import { DefaultLayout } from './Components/Layout/';
+import config from '~/config';
+import { DefaultLayout } from '~/layouts';
 
 function App() {
+    console.log('routes', config);
     return (
         <Router>
             <div className="App">
