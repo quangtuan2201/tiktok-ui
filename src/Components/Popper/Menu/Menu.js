@@ -72,7 +72,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFc 
         </>
     );
 }
-Menu.prototype = {
+Menu.propTypes = {
     children: PropTypes.node.isRequired,
     items: PropTypes.array,
     hideOnClick: PropTypes.bool,

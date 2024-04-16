@@ -14,7 +14,7 @@ function Wrapper({ children, className }) {
         </div>
     );
 }
-Wrapper.prototype = {
+Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
     classNames: PropTypes.string,
 };

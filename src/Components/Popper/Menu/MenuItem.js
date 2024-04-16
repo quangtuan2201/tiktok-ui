@@ -13,7 +13,7 @@ function MenuItem({ data, onClick }) {
         </Button>
     );
 }
-MenuItem.prototype = {
+MenuItem.propTypes = {
     data: PropTypes.object.isRequired,
     onClick: PropTypes.func,
 };
